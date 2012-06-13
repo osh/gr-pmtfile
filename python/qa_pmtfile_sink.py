@@ -40,7 +40,7 @@ class qa_sink (gr_unittest.TestCase):
         src = gr.file_source(1, "/dev/urandom");
         ann = gr.annotator_raw(1);
         head = gr.head(1, 100000);
-        snk = pmtfile.sink("testfile.pf", pmtfile.pmtfile.RI8);
+        snk = pmtfile.sink("test1.pf", pmtfile.pmtfile.RI8);
         tb = gr.top_block();
 
         # connections

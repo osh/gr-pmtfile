@@ -35,7 +35,7 @@ pmtfile_make_sink (std::string filename, pmtfile::datatype_t datatype)
 
 
 pmtfile_sink::pmtfile_sink (std::string filename, pmtfile::datatype_t datatype)
-	: pmtfile("pmtfile.test", datatype),
+	: pmtfile(filename, datatype),
       gr_sync_block ("sink",
 		gr_make_io_signature (1, 1, itemsize),
 		gr_make_io_signature (0, 0, 0))
@@ -60,31 +60,36 @@ pmtfile_sink::work (int noutput_items,
     // for now we only support tags at the beginning of the stream
     if(nitems_read(0) == 0){
         std::vector<gr_tag_t> all_tags;
-        // TODO: get all tags? not just in range
+        // TODO: get all tags? for now we only grab the ones at the start of the stream
         get_tags_in_range(all_tags, 0, nitems_read(0),nitems_read(0)+noutput_items);
         std::sort(all_tags.begin(), all_tags.end(), gr_tag_t::offset_compare);
 
+        // set a format tag to store
         pmt::pmt_t fmt_pmt = pmt::pmt_cons( pmt::pmt_from_uint64( 0 ), 
             pmt::pmt_cons( pmt::pmt_string_to_symbol("format"),
             pmt::pmt_string_to_symbol(datatype_str(format)) ) );
         tag_list = pmt::pmt_list1( fmt_pmt );
 
+        // iterate over tags adding them to our list
         for(int i=0; i<all_tags.size(); i++){
             gr_tag_t* tag = &all_tags[i];
 
-            // TAG = ( time, ( key, val ) )
-            pmt::pmt_t tag_pmt = pmt::pmt_cons( pmt::pmt_from_uint64( tag->offset ), 
-                        pmt::pmt_cons( tag->key, tag->value ) );
-            tag_list = pmt::pmt_list_add(tag_list, tag_pmt);
+            // add key if it is not a prior format tag ( we regenerate those )
+            if( pmt::pmt_symbol_to_string(tag->key).compare("format") != 0){
+                // TAG = ( time, ( key, val ) )
+                pmt::pmt_t tag_pmt = pmt::pmt_cons( pmt::pmt_from_uint64( tag->offset ), 
+                            pmt::pmt_cons( tag->key, tag->value ) );
+                tag_list = pmt::pmt_list_add(tag_list, tag_pmt);
+            }
         }
 
-//        std::stringstream ss(std::stringstream::in | std::stringstream::out);
-//        std::streambuf sb()
-//        std::ostringstream ss;
-//        pmt::pmt_serialize(tag_list, ss.str());
-          pmt::pmt_print(tag_list);
+        // write out serialized tags
+        set_header(tag_list);       
+        //print_header();
+        write_header();
     }
 
+    fs.write( (const char*)input_items[0], noutput_items );
 	return noutput_items;
 }
 

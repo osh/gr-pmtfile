@@ -29,15 +29,20 @@ except:
 class qa_source (gr_unittest.TestCase):
 
     def setUp (self):
-        self.tb = gr.top_block ()
+        pass
 
     def tearDown (self):
-        self.tb = None
+        pass
 
     def test_001_t (self):
-        # set up fg
-        self.tb.run ()
-        # check data
+        tb = gr.top_block();
+        src = pmtfile.source("test1.pf");
+#        op = gr.add_const_bb(1);
+        snk = pmtfile.sink("test2.pf", pmtfile.pmtfile.RI8);
+
+        tb.connect(src,snk);
+        tb.run();
+
 
 
 if __name__ == '__main__':

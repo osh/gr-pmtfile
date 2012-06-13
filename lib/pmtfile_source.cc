@@ -35,7 +35,7 @@ pmtfile_make_source (std::string filename)
 
 pmtfile_source::pmtfile_source (std::string filename)
 	: 
-    pmtfile("pmtfile.test"),
+    pmtfile(filename),
     gr_sync_block ("source",
 		gr_make_io_signature (0, 0, 0),
 		gr_make_io_signature (1, 1, itemsize))
@@ -53,6 +53,29 @@ pmtfile_source::work (int noutput_items,
 			gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items)
 {
-	return noutput_items;
+    // for now we only support tags at the beginning of the stream
+    if(nitems_written(0) == 0){
+    // extract all the tags from the file
+    // populate them as tags
+    pmt::pmt_t taglist = pmt::pmt_car(pmt::pmt_cdr(header));
+    pmt::pmt_t iter = taglist;
+    while( pmt::pmt_is_pair( iter ) ){
+        pmt::pmt_t car = pmt::pmt_car(iter);
+        pmt::pmt_t cdr = pmt::pmt_cdr(iter);
+        pmt::pmt_t timestamp = pmt::pmt_car(car);
+        pmt::pmt_t kv = pmt::pmt_cdr(car);
+        pmt::pmt_t k = pmt::pmt_car(kv);
+        pmt::pmt_t v = pmt::pmt_cdr(kv);
+        uint64_t ts = pmt_to_uint64(timestamp);
+        add_item_tag(0, ts, k, v, pmt::pmt_intern(d_name));
+        iter = cdr;
+        }
+    }
+
+    // copy data samples
+    char* out = (char*) output_items[0];
+    int nitems = std::min(noutput_items, ((int)filestatus.st_size)-((int)fs.tellg()));
+    fs.read(out, nitems);
+	return nitems;
 }
 
