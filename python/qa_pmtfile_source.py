@@ -36,11 +36,12 @@ class qa_source (gr_unittest.TestCase):
 
     def test_001_t (self):
         tb = gr.top_block();
-        src = pmtfile.source("test1.pf");
+        src = pmtfile.source("test1.pf",True);
 #        op = gr.add_const_bb(1);
+        head = gr.head(1, 200000);
         snk = pmtfile.sink("test2.pf", pmtfile.pmtfile.RI8);
 
-        tb.connect(src,snk);
+        tb.connect(src,head,snk);
         tb.run();
 
 

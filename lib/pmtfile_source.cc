@@ -27,18 +27,20 @@
 
 
 pmtfile_source_sptr
-pmtfile_make_source (std::string filename)
+pmtfile_make_source (std::string filename, bool repeat)
 {
-	return pmtfile_source_sptr (new pmtfile_source (filename));
+	return pmtfile_source_sptr (new pmtfile_source (filename,repeat));
 }
 
 
-pmtfile_source::pmtfile_source (std::string filename)
+pmtfile_source::pmtfile_source (std::string filename, bool repeat)
 	: 
     pmtfile(filename),
     gr_sync_block ("source",
 		gr_make_io_signature (0, 0, 0),
-		gr_make_io_signature (1, 1, itemsize))
+		gr_make_io_signature (1, 1, itemsize)),
+    d_repeat(repeat),
+    d_datastart(0)
 {
 }
 
@@ -74,6 +76,15 @@ pmtfile_source::work (int noutput_items,
 
     // copy data samples
     char* out = (char*) output_items[0];
+
+    // rewind if we need to
+    if((fs.tellg()==filestatus.st_size) && d_repeat){
+        // reset read pointer
+        printf("reset read pointer to after header.\n");
+        read_header();
+        }
+
+    // compute num output items and read them
     int nitems = std::min(noutput_items, ((int)filestatus.st_size)-((int)fs.tellg()));
     fs.read(out, nitems);
 	return nitems;

@@ -28,7 +28,7 @@
 class pmtfile_source;
 typedef boost::shared_ptr<pmtfile_source> pmtfile_source_sptr;
 
-PMTFILE_API pmtfile_source_sptr pmtfile_make_source (std::string filename);
+PMTFILE_API pmtfile_source_sptr pmtfile_make_source (std::string filename, bool repeat=false);
 
 /*!
  * \brief PMTFile Source - reads in pmt-tagged data files
@@ -36,14 +36,15 @@ PMTFILE_API pmtfile_source_sptr pmtfile_make_source (std::string filename);
  */
 class PMTFILE_API pmtfile_source : public pmtfile, public gr_sync_block
 {
-	friend PMTFILE_API pmtfile_source_sptr pmtfile_make_source (std::string filename);
+	friend PMTFILE_API pmtfile_source_sptr pmtfile_make_source (std::string filename, bool repeat);
 
-	pmtfile_source (std::string filename);
+	pmtfile_source (std::string filename, bool repeat=false);
 
  public:
 	~pmtfile_source ();
 
-
+    bool d_repeat;
+    int d_datastart;
 	int work (int noutput_items,
 		gr_vector_const_void_star &input_items,
 		gr_vector_void_star &output_items);
