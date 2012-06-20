@@ -102,8 +102,8 @@ void pmtfile::print_header(){
         pmt::pmt_t v = pmt::pmt_cdr(kv);
 
 
-        std::string ks( pmt::pmt_symbol_to_string( k ) );
-        std::string vs( pmt::pmt_symbol_to_string( v ) );
+        std::string ks( pmt::pmt_write_string( k ) );
+        std::string vs( pmt::pmt_write_string( v ) );
 
         std::cout << ks << ":   \t" << vs << "\n";
 
