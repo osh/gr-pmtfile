@@ -21,16 +21,16 @@ class PMTFILE_API pmtfile {
     
     public:
         static const int num_datatypes = 5;
-        typedef enum { CF64=0, RF32=1, RI32=2, RI16=3, RI8=4 } datatype_t;
+        typedef enum { CF64=0, RF32=1, RI32=2, RI16=3, RI8=4, CI32=5 } datatype_t;
         
         static const int datatype_size(datatype_t type){
-            const int sizes[] = {8,4,4,2,1}; //corresponding byte sizes
+            const int sizes[] = {8,4,4,2,1,4}; //corresponding byte sizes
             return sizes[(int)type];
         }
 
 
         static const char* datatype_str(datatype_t type){
-            const char* types[] = {"CF64","RF32","RI32","RI16","RI8"};
+            const char* types[] = {"CF64","RF32","RI32","RI16","RI8","CI32"};
             return types[type];
         }
 

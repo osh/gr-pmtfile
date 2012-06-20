@@ -38,8 +38,8 @@ class qa_source (gr_unittest.TestCase):
         tb = gr.top_block();
         src = pmtfile.source("test1.pf",True);
 #        op = gr.add_const_bb(1);
-        head = gr.head(1, 200000);
-        snk = pmtfile.sink("test2.pf", pmtfile.pmtfile.RI8);
+        head = gr.head(2, 200000);
+        snk = pmtfile.sink("test2.pf", pmtfile.pmtfile.RI16);
 
         tb.connect(src,head,snk);
         tb.run();

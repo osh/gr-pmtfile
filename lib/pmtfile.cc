@@ -41,7 +41,7 @@ pmtfile::pmtfile(std::string filename) : fs(filename.c_str(), std::ios_base::in|
         pmt::pmt_t v = pmt::pmt_cdr(kv);
     
         if(pmt::pmt_symbol_to_string(k).compare("format")==0){
-            const pmtfile::datatype_t types[] = {CF64, RF32, RI32, RI16, RI8};
+            const pmtfile::datatype_t types[] = {CF64, RF32, RI32, RI16, RI8, CI32};
             for(int i=0; i<num_datatypes; i++){
                 if(pmt::pmt_symbol_to_string(v).compare(datatype_str(types[i]))==0){
                     itemsize = datatype_size(types[i]);

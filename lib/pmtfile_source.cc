@@ -86,7 +86,7 @@ pmtfile_source::work (int noutput_items,
 
     // compute num output items and read them
     int nitems = std::min(noutput_items, ((int)filestatus.st_size)-((int)fs.tellg()));
-    fs.read(out, nitems);
+    fs.read(out, nitems*itemsize);
 	return nitems;
 }
 

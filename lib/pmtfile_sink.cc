@@ -93,7 +93,7 @@ pmtfile_sink::work (int noutput_items,
         write_header();
     }
 
-    fs.write( (const char*)input_items[0], noutput_items );
+    fs.write( (const char*)input_items[0], noutput_items*itemsize );
 	return noutput_items;
 }
 
