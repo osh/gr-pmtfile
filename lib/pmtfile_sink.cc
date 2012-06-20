@@ -64,6 +64,7 @@ pmtfile_sink::work (int noutput_items,
         get_tags_in_range(all_tags, 0, nitems_read(0),nitems_read(0)+noutput_items);
         std::sort(all_tags.begin(), all_tags.end(), gr_tag_t::offset_compare);
 
+
         // set a format tag to store
         pmt::pmt_t fmt_pmt = pmt::pmt_cons( pmt::pmt_from_uint64( 0 ), 
             pmt::pmt_cons( pmt::pmt_string_to_symbol("format"),
@@ -73,6 +74,9 @@ pmtfile_sink::work (int noutput_items,
         // iterate over tags adding them to our list
         for(int i=0; i<all_tags.size(); i++){
             gr_tag_t* tag = &all_tags[i];
+
+//            pmt::pmt_print( tag->key );
+//            pmt::pmt_print( tag->value );
 
             // add key if it is not a prior format tag ( we regenerate those )
             if( pmt::pmt_symbol_to_string(tag->key).compare("format") != 0){
@@ -85,7 +89,7 @@ pmtfile_sink::work (int noutput_items,
 
         // write out serialized tags
         set_header(tag_list);       
-        //print_header();
+//        print_header();
         write_header();
     }
 

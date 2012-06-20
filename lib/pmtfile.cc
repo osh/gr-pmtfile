@@ -128,6 +128,9 @@ void pmtfile::print_fileinfo(){
 }
 
 void pmtfile::read_header(){
+    printf("read header called.\n");
     fs.seekg(0);       
     header = pmt::pmt_deserialize(*sb);
+    pmt::pmt_print(header);
+    printf("read header done.\n");
 }
