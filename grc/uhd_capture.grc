@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Jun 20 10:51:23 2012</timestamp>
+  <timestamp>Wed Jun 20 12:12:38 2012</timestamp>
   <block>
     <key>variable</key>
     <param>
@@ -835,7 +835,7 @@
     </param>
     <param>
       <key>run_options</key>
-      <value>run</value>
+      <value>prompt</value>
     </param>
     <param>
       <key>run</key>

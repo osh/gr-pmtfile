@@ -28,9 +28,45 @@
    </option>
   </param>
 
+  <param>
+    <name>IO Type</name>
+    <key>type</key>
+    <type>enum</type>
+    <option>
+        <name>Complex</name>
+        <key>complex</key>
+        <opt>size:gr.sizeof_gr_complex</opt>
+        <opt>ptt:pmtfile.pmtfile.CF64</opt>
+    </option>
+    <option>
+        <name>Float</name>
+        <key>float</key>
+        <opt>size:gr.sizeof_float</opt>
+        <opt>ptt:pmtfile.pmtfile.RF32</opt>
+    </option>
+    <option>
+        <name>Int</name>
+        <key>int</key>
+        <opt>size:gr.sizeof_int</opt>
+        <opt>ptt:pmtfile.pmtfile.RI32</opt>
+    </option>
+    <option>
+        <name>Short</name>
+        <key>short</key>
+        <opt>size:gr.sizeof_short</opt>
+        <opt>ptt:pmtfile.pmtfile.RI16</opt>
+    </option>
+    <option>
+        <name>Byte</name>
+        <key>byte</key>
+        <opt>size:gr.sizeof_char</opt>
+        <opt>ptt:pmtfile.pmtfile.RI8</opt>
+    </option>
+  </param>
+
   <source>
     <name>out</name>
-    <type>short</type>
+    <type>$type</type>
   </source>
 
 </block>
