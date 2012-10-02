@@ -42,12 +42,6 @@ pmtfile_filter::pmtfile_filter (int itemsize, std::vector<std::string> keylist, 
     d_keylist(keylist)
 {
     set_tag_propagation_policy(TPP_DONT);
-    
-    std::cout << "keylist: [";
-    for(int i=0; i<d_keylist.size(); i++){
-        std::cout << d_keylist[i] << ", ";
-    }
-    std::cout << "]\n";
 }
 
 
@@ -58,9 +52,7 @@ pmtfile_filter::~pmtfile_filter ()
 bool pmtfile_filter::key_in_list(pmt::pmt_t k){
     if(!pmt::pmt_is_symbol(k)){ return false; }
     std::string kv(pmt::pmt_symbol_to_string(k));
-    std::cout << "key_in_list --> " << k << "\n";
     for(int i=0; i<d_keylist.size(); i++){
-        std::cout << "mathcing: " << d_keylist[i] << "\n";
         if(d_keylist[i].compare(kv)==0){ return true; }
     }
     return false;
@@ -73,7 +65,6 @@ pmtfile_filter::work (int noutput_items,
 {
 	const void *in = input_items[0];
 	void *out = output_items[0];
-    
     std::vector<gr_tag_t> all_tags;
     get_tags_in_range(all_tags, 0,  nitems_read(0),  nitems_read(0) + noutput_items);
     std::vector<gr_tag_t>::iterator itr;
@@ -82,7 +73,6 @@ pmtfile_filter::work (int noutput_items,
             add_item_tag(0, itr->offset, itr->key, itr->value, itr->srcid);
         }
     }
-
     memcpy(out, in, noutput_items * d_itemsize);
 	return noutput_items;
 }
