@@ -80,7 +80,7 @@ pmtfile_source::work (int noutput_items,
     // rewind if we need to
     if((fs.tellg()==filestatus.st_size) && d_repeat){
         // reset read pointer
-        printf("reset read pointer to after header.\n");
+//        printf("reset read pointer to after header.\n");
         read_header();
         }
 
