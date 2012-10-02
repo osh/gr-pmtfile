@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Jun 20 12:36:44 2012</timestamp>
+  <timestamp>Thu Jun 21 17:07:16 2012</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -171,37 +171,6 @@
     </param>
   </block>
   <block>
-    <key>pmtfile_source</key>
-    <param>
-      <key>id</key>
-      <value>pmtfile_source_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>filename</key>
-      <value>test.pf</value>
-    </param>
-    <param>
-      <key>repeat</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>short</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(227, 73)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>gr_throttle</key>
     <param>
       <key>id</key>
@@ -249,6 +218,37 @@
     <param>
       <key>_coordinate</key>
       <value>(10, 170)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pmtfile_source</key>
+    <param>
+      <key>id</key>
+      <value>pmtfile_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>filename</key>
+      <value>test.pf</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>short</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(222, 73)</value>
     </param>
     <param>
       <key>_rotation</key>

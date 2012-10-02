@@ -20,6 +20,6 @@
 include(GrPython)
 
 GR_PYTHON_INSTALL(
-    PROGRAMS
+    PROGRAMS    pmtfile_info.py
     DESTINATION bin
 )

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<block>
+  <name>Stream Tag Annotator Raw</name>
+  <key>gr_annotator_raw</key>
+  <category>Stream Tags</category>
+  <import>from gnuradio import gr;</import>
+  <import>from gruel import pmt;</import>
+  <make>gr.annotator_raw($type.size);
+self.${id}.add_tag($offset, $k, $v)</make>
+  
+  <param>
+    <name>Stream Offset</name>
+    <key>offset</key>
+    <value>0</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Stream Tag Key</name>
+    <key>k</key>
+    <value>pmt.pmt_intern("somekey")</value>
+    <type>raw</type>
+  </param>
+
+  <param>
+    <name>Stream Tag Value</name>
+    <key>v</key>
+    <value>pmt.pmt_from_double(1234.0e10)</value>
+    <type>raw</type>
+  </param>
+
+  <param>
+    <name>IO Type</name>
+    <key>type</key>
+    <type>enum</type>
+    <option>
+        <name>Complex</name>
+        <key>complex</key>
+        <opt>size:gr.sizeof_gr_complex</opt>
+    </option>
+    <option>
+        <name>Float</name>
+        <key>float</key>
+        <opt>size:gr.sizeof_float</opt>
+    </option>
+    <option>
+        <name>Int</name>
+        <key>int</key>
+        <opt>size:gr.sizeof_int</opt>
+    </option>
+    <option>
+        <name>Short</name>
+        <key>short</key>
+        <opt>size:gr.sizeof_short</opt>
+    </option>
+    <option>
+        <name>Byte</name>
+        <key>byte</key>
+        <opt>size:gr.sizeof_char</opt>
+    </option>
+  </param>
+
+  <check>type($k) == type(pmt.PMT_NIL)</check>
+  <check>type($v) == type(pmt.PMT_NIL)</check>
+
+  <sink>
+    <name>in</name>
+    <type>$type</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>$type</type>
+  </source>
+
+  <doc>
+    Please see pmt.h for available constructor functions such as
+String,     pmt_intern("string")
+uint64_t,   pmt_from_uint64(1234ULL)
+double,     pmt_from_double(123e10)
+etc...
+  </doc>
+</block>

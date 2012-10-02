@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<block>
+  <name>Stream Tag Filter</name>
+  <key>pmtfile_filter</key>
+  <category>Stream Tags</category>
+  <import>import pmtfile</import>
+  <make>pmtfile.filter($type.size, $kl, $invert)</make>
+
+  <param>
+    <name>Key List</name>
+    <key>kl</key>
+    <value>["rx_time", "rx_rate", "rx_freq"]</value>
+    <type>raw</type>
+  </param>
+
+  <param>
+    <name>Pass Keys in List?</name>
+    <key>invert</key>
+    <value></value>
+    <type>bool</type>
+    <option>
+        <name>True (Pass Only Keys in List)</name>
+        <key>True</key>
+    </option>
+    <option>
+        <name>False (Reject Only keys in List)</name>
+        <key>False</key>
+    </option>
+  </param>
+
+  <param>
+    <name>IO Type</name>
+    <key>type</key>
+    <type>enum</type>
+    <option>
+        <name>Complex</name>
+        <key>complex</key>
+        <opt>size:gr.sizeof_gr_complex</opt>
+    </option>
+    <option>
+        <name>Float</name>
+        <key>float</key>
+        <opt>size:gr.sizeof_float</opt>
+    </option>
+    <option>
+        <name>Int</name>
+        <key>int</key>
+        <opt>size:gr.sizeof_int</opt>
+    </option>
+    <option>
+        <name>Short</name>
+        <key>short</key>
+        <opt>size:gr.sizeof_short</opt>
+    </option>
+    <option>
+        <name>Byte</name>
+        <key>byte</key>
+        <opt>size:gr.sizeof_char</opt>
+    </option>
+  </param>
+
+  <check>type($keys) == type([])</check>
+
+  <sink>
+    <name>in</name>
+    <type>$type</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>$type</type>
+  </source>
+</block>

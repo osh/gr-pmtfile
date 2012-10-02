@@ -23,5 +23,6 @@
 install(FILES
     pmtfile_api.h
     pmtfile_source.h
-    pmtfile_sink.h DESTINATION include/pmtfile
+    pmtfile_sink.h
+    pmtfile_filter.h DESTINATION include/pmtfile
 )

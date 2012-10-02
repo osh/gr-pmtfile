@@ -6,11 +6,21 @@
 
 //load generated python docstrings
 %include "pmtfile_swig_doc.i"
+%include <std_vector.i>
+%include <std_string.i>
+%include <typemaps.i>
+
+namespace std {
+    %template(StrVector) vector<string>;
+}
+
 
 %{
 #include "pmtfile_source.h"
 #include "pmtfile_sink.h"
 #include "pmtfile.h"
+#include "pmtfile_filter.h"
+
 %}
 
 GR_SWIG_BLOCK_MAGIC(pmtfile,source);
@@ -18,6 +28,8 @@ GR_SWIG_BLOCK_MAGIC(pmtfile,source);
 
 GR_SWIG_BLOCK_MAGIC(pmtfile,sink);
 %include "pmtfile_sink.h"
+GR_SWIG_BLOCK_MAGIC(pmtfile,filter);
+%include "pmtfile_filter.h"
 
 %include "pmtfile.h"
 

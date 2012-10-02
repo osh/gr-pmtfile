@@ -21,7 +21,7 @@
 # Setup library
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
-add_library(gnuradio-pmtfile SHARED pmtfile_source.cc pmtfile_sink.cc pmtfile.cc)
+add_library(gnuradio-pmtfile SHARED pmtfile_source.cc pmtfile_sink.cc pmtfile.cc pmtfile_filter.cc )
 target_link_libraries(gnuradio-pmtfile ${Boost_LIBRARIES} ${GRUEL_LIBRARIES} ${GNURADIO_CORE_LIBRARIES})
 set_target_properties(gnuradio-pmtfile PROPERTIES DEFINE_SYMBOL "gnuradio_pmtfile_EXPORTS")
 
@@ -51,3 +51,7 @@ GR_ADD_TEST(qa_pmtfile_source qa_pmtfile_source)
 add_executable(qa_pmtfile_sink qa_pmtfile_sink.cc)
 target_link_libraries(qa_pmtfile_sink gnuradio-pmtfile ${Boost_LIBRARIES})
 GR_ADD_TEST(qa_pmtfile_sink qa_pmtfile_sink)
+
+add_executable(qa_pmtfile_filter qa_pmtfile_filter.cc)
+target_link_libraries(qa_pmtfile_filter gnuradio-pmtfile ${Boost_LIBRARIES})
+GR_ADD_TEST(qa_pmtfile_filter qa_pmtfile_filter)

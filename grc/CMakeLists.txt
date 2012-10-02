@@ -18,5 +18,6 @@
 # Boston, MA 02110-1301, USA.
 install(FILES
     pmtfile_source.xml
-    pmtfile_sink.xml DESTINATION share/gnuradio/grc/blocks
+    pmtfile_sink.xml
+    pmtfile_filter.xml DESTINATION share/gnuradio/grc/blocks
 )
